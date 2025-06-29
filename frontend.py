@@ -440,7 +440,7 @@ class Frontend:
         
         Provide submit button to save all data to session_state
         """
-        st.markdown("## 🚀 Calculate Optimal Scheduling Plan")
+        st.markdown("## Calculate Optimal Scheduling Plan")
         
         # Create three-column layout
         col1, col2, col3 = st.columns([3, 1, 1])
