@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """
 Home Appliance Scheduling Optimization Platform - Frontend Interface Module
 
@@ -63,7 +60,7 @@ class Frontend:
         Display page title and each functional area
         """
         # Display page title
-        st.title("🔌 Home Appliance Scheduling Optimization Platform")
+        st.title(" Home Appliance Scheduling Optimization Platform")
         st.markdown("""
         This platform helps you optimize the running time of home appliances to minimize electricity costs.
         It calculates the optimal scheduling plan based on electricity price variations, appliance power, and operational requirements.
@@ -71,17 +68,17 @@ class Frontend:
         
         # Create three main areas: electricity price input, appliance management, and calculation button
         with st.container():
-            st.markdown("## 📊 Electricity Price and Power Settings")
+            st.markdown("## Electricity Price and Power Settings")
             self.render_electricity_pricing()
             
         st.markdown("---")
         
         with st.container():
-            st.markdown("## 📋 Appliance List")
+            st.markdown("## Appliance List")
             self.render_appliance_list()
             
         with st.container():
-            st.markdown("## ➕ Add New Appliance")
+            st.markdown("## + Add New Appliance")
             self.render_add_appliance()
             
         st.markdown("---")
@@ -178,7 +175,6 @@ class Frontend:
             
             if st.button("Apply Template"):
                 st.session_state.prices = price_templates[selected_template]
-                st.rerun()
         
         with col2:
             st.markdown("### Power Limit")
@@ -291,13 +287,13 @@ class Frontend:
                     if app['id'] != appliance_to_delete
                 ]
                 st.success(f"Appliance deleted")
-                st.rerun()
+                st.experimental_rerun()
                 
         # Display button to clear all appliances
         if st.button("Clear All Appliances", type="secondary"):
             st.session_state.appliances = []
             st.success("All appliances cleared")
-            st.rerun()
+            st.experimental_rerun()
             
     def render_add_appliance(self):
         """
@@ -401,7 +397,7 @@ class Frontend:
                 st.session_state.next_id += 1
                 
                 st.success(f"Added appliance: {name}")
-                st.rerun()
+                st.experimental_rerun()
         
         # Display appliance addition guide
         with st.expander("Appliance Addition Guide", expanded=False):
@@ -439,7 +435,7 @@ class Frontend:
         
         Provide submit button to save all data to session_state
         """
-        st.markdown("## 🚀 Calculate Optimal Scheduling Plan")
+        st.markdown("## Calculate Optimal Scheduling Plan")
         
         # Create two-column layout
         col1, col2 = st.columns([3, 1])

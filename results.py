@@ -75,7 +75,7 @@ class Results:
         Display page title, calculate optimal scheduling plan, and show results
         """
         # Display page title
-        st.title("🔌 Home Appliance Scheduling Optimization Results")
+        st.title("Home Appliance Scheduling Optimization Results")
         
         # Check if calculation data is ready
         if "calculation_ready" not in st.session_state or not st.session_state.calculation_ready:
@@ -184,7 +184,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## 📊 Optimization Results Summary")
+        st.markdown("## Optimization Results Summary")
         
         # Create three-column layout
         col1, col2, col3 = st.columns(3)
@@ -245,7 +245,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## 📋 Appliance Scheduling Timetable")
+        st.markdown("## Appliance Scheduling Timetable")
         
         if not schedule:
             st.warning("No feasible scheduling plan")
@@ -305,7 +305,7 @@ class Results:
         Parameters:
             optimizer (Optimizer): Optimizer instance
         """
-        st.markdown("## 📈 Hourly Power Usage")
+        st.markdown("## Hourly Power Usage")
         
         # Get hourly power usage
         hourly_usage = optimizer.get_hourly_usage()
@@ -430,7 +430,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## 🕒 Appliance Runtime Timeline")
+        st.markdown("## Appliance Runtime Timeline")
         
         if not schedule:
             st.warning("No feasible scheduling plan")
@@ -548,7 +548,7 @@ class Results:
         """
         Render usage pattern analysis and optimization suggestions
         """
-        st.markdown("## 🧠 AI Usage Pattern Analysis")
+        st.markdown("## AI Pattern Analysis")
         
         # Check if we have enough data for analysis
         report = self.usage_analyzer.generate_insights_report()
@@ -929,7 +929,7 @@ class Results:
         # Display navigation buttons
         st.markdown("---")
         with st.container():
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns(3)
             with col1:
                 if st.button("Return to Input Page", type="secondary"):
                     st.session_state.page = "frontend"
@@ -938,13 +938,17 @@ class Results:
                 if st.button("View Latest Optimization Results", type="primary"):
                     st.session_state.page = "results"
                     st.rerun()
+            with col3:
+                if st.button("Return to Home", type="secondary"):
+                    st.session_state.page = "home"
+                    st.rerun()
     
     def render_navigation(self):
         """
-        Render navigation buttons, allowing users to return to the frontend interface to modify inputs
+        Render navigation buttons, allowing users to navigate between different pages
         """
         # Display navigation buttons
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         
         with col1:
             if st.button("Return to Input Page", type="secondary"):
@@ -958,6 +962,12 @@ class Results:
         with col2:
             if st.button("View Usage Pattern Analysis", type="primary"):
                 st.session_state.page = "patterns"
+                st.rerun()
+                
+        with col3:
+            if st.button("Return to Home", type="secondary"):
+                # Switch to home page
+                st.session_state.page = "home"
                 st.rerun()
 
 
