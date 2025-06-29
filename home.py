@@ -25,13 +25,10 @@ def main():
         initial_sidebar_state="expanded"
     )
     
-    # Header section
-    st.title("Home Appliance Scheduling Optimization Platform")
-    
     # Navigation section
     st.markdown("## Get Started")
     
-    col1, col2, col3 = st.columns([1, 1, 1])
+    col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
     
     with col1:
         st.markdown("""
@@ -72,7 +69,19 @@ def main():
             - Calculate optimal scheduling plans
             - Display electricity cost savings and usage analysis
             - Record and analyze electricity usage patterns
+            - AI-powered insights and recommendations with Gemini AI
             """)
+            
+    with col4:
+        st.markdown("""
+        <div style="background-color:#e8eaf6;padding:20px;border-radius:10px;text-align:center;height:180px;">
+        <h3 style="color:#3f51b5;">Gemini AI Insights</h3>
+        <p style="color:#3f51b5;font-weight:500;">Get AI-powered analysis and personalized recommendations for your electricity usage</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("AI Insights", key="gemini_button", use_container_width=True):
+            st.session_state.page = "gemini_insights"
+            st.rerun()
     
     st.markdown("---")
     

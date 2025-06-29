@@ -75,7 +75,14 @@ class Results:
         Display page title, calculate optimal scheduling plan, and show results
         """
         # Display page title
-        st.title("Home Appliance Scheduling Optimization Results")
+        st.title("🔌 Home Appliance Scheduling Optimization Results")
+        
+        # Add a prominent Return to Home button at the top
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col1:
+            if st.button("🏠 Return to Home", key="top_home_button"):
+                st.session_state.page = "home"
+                st.rerun()
         
         # Check if calculation data is ready
         if "calculation_ready" not in st.session_state or not st.session_state.calculation_ready:
@@ -184,7 +191,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## Optimization Results Summary")
+        st.markdown("## 📊 Optimization Results Summary")
         
         # Create three-column layout
         col1, col2, col3 = st.columns(3)
@@ -245,7 +252,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## Appliance Scheduling Timetable")
+        st.markdown("## 📋 Appliance Scheduling Timetable")
         
         if not schedule:
             st.warning("No feasible scheduling plan")
@@ -305,7 +312,7 @@ class Results:
         Parameters:
             optimizer (Optimizer): Optimizer instance
         """
-        st.markdown("## Hourly Power Usage")
+        st.markdown("## 📈 Hourly Power Usage")
         
         # Get hourly power usage
         hourly_usage = optimizer.get_hourly_usage()
@@ -430,7 +437,7 @@ class Results:
             optimizer (Optimizer): Optimizer instance
             schedule (Dict[str, int]): Scheduling plan
         """
-        st.markdown("## Appliance Runtime Timeline")
+        st.markdown("## 🕒 Appliance Runtime Timeline")
         
         if not schedule:
             st.warning("No feasible scheduling plan")
@@ -548,7 +555,7 @@ class Results:
         """
         Render usage pattern analysis and optimization suggestions
         """
-        st.markdown("## AI Pattern Analysis")
+        st.markdown("## 🧠 AI Usage Pattern Analysis")
         
         # Check if we have enough data for analysis
         report = self.usage_analyzer.generate_insights_report()

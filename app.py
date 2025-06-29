@@ -4,13 +4,16 @@
 """
 Home Appliance Scheduling Optimization Platform - Main Application
 
-This module integrates the home page, frontend interface and results display interface, implementing a complete home appliance scheduling optimization platform.
+This module integrates the home page, frontend interface, results display interface, and Gemini AI insights, 
+implementing a complete home appliance scheduling optimization platform.
 """
 
 import streamlit as st
 from frontend import Frontend
 from results import Results
 from home import main as home_main
+from gemini_insights import GeminiInsights
+from usage_analyzer import UsageAnalyzer
 
 def main():
     """
@@ -21,6 +24,9 @@ def main():
     # Initialize session_state
     if "page" not in st.session_state:
         st.session_state.page = "home"
+    
+    # Create usage analyzer instance (shared between components)
+    usage_analyzer = UsageAnalyzer()
     
     # Determine which interface to display based on the page parameter
     if st.session_state.page == "home":
@@ -35,6 +41,11 @@ def main():
         # Create a patterns-only view
         results = Results()
         results.render_usage_patterns_page()
+    elif st.session_state.page == "gemini_insights":
+        # Create Gemini Insights view
+        insights = GeminiInsights()
+        insights.set_usage_analyzer(usage_analyzer)
+        insights.run()
 
 if __name__ == "__main__":
     main()

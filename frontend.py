@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 Home Appliance Scheduling Optimization Platform - Frontend Interface Module
 
@@ -60,7 +63,8 @@ class Frontend:
         Display page title and each functional area
         """
         # Display page title
-        st.title(" Home Appliance Scheduling Optimization Platform")
+        st.title("Home Appliance Scheduling Optimization Platform")
+                
         st.markdown("""
         This platform helps you optimize the running time of home appliances to minimize electricity costs.
         It calculates the optimal scheduling plan based on electricity price variations, appliance power, and operational requirements.
@@ -175,6 +179,7 @@ class Frontend:
             
             if st.button("Apply Template"):
                 st.session_state.prices = price_templates[selected_template]
+                st.rerun()
         
         with col2:
             st.markdown("### Power Limit")
@@ -287,13 +292,13 @@ class Frontend:
                     if app['id'] != appliance_to_delete
                 ]
                 st.success(f"Appliance deleted")
-                st.experimental_rerun()
+                st.rerun()
                 
         # Display button to clear all appliances
         if st.button("Clear All Appliances", type="secondary"):
             st.session_state.appliances = []
             st.success("All appliances cleared")
-            st.experimental_rerun()
+            st.rerun()
             
     def render_add_appliance(self):
         """
@@ -397,7 +402,7 @@ class Frontend:
                 st.session_state.next_id += 1
                 
                 st.success(f"Added appliance: {name}")
-                st.experimental_rerun()
+                st.rerun()
         
         # Display appliance addition guide
         with st.expander("Appliance Addition Guide", expanded=False):
@@ -435,10 +440,10 @@ class Frontend:
         
         Provide submit button to save all data to session_state
         """
-        st.markdown("## Calculate Optimal Scheduling Plan")
+        st.markdown("## 🚀 Calculate Optimal Scheduling Plan")
         
-        # Create two-column layout
-        col1, col2 = st.columns([3, 1])
+        # Create three-column layout
+        col1, col2, col3 = st.columns([3, 1, 1])
         
         with col1:
             # Select optimization algorithm
@@ -473,6 +478,12 @@ class Frontend:
             
             # Redirect to results page (assuming app.py handles page navigation)
             st.session_state.page = "results"
+            
+        # Add home button in the third column
+        with col3:
+            if st.button("Return to Home", use_container_width=True):
+                st.session_state.page = "home"
+                st.rerun()
             
     def _validate_data(self) -> bool:
         """
