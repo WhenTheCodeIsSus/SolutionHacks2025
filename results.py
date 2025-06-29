@@ -585,6 +585,38 @@ class Results:
             
         with tab3:
             self._render_consumption_patterns(report)
+            
+        # Add option to delete all history
+        st.markdown("---")
+        with st.container():
+            st.markdown("### Data Management")
+            
+            # Initialize the confirmation state if not exists
+            if 'confirm_delete' not in st.session_state:
+                st.session_state.confirm_delete = False
+            
+            # Show delete button or confirmation based on state
+            if not st.session_state.confirm_delete:
+                if st.button("Delete All Analytics History", type="secondary"):
+                    st.session_state.confirm_delete = True
+                    st.rerun()
+            else:
+                st.warning("Are you sure you want to delete all analytics history? This action cannot be undone.")
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("Yes, Delete Everything", type="primary"):
+                        # Call the clear_history method
+                        if self.usage_analyzer.clear_history():
+                            st.success("All analytics history has been deleted successfully.")
+                            st.session_state.confirm_delete = False
+                            # Force refresh the page
+                            st.rerun()
+                        else:
+                            st.error("Failed to delete analytics history. Please try again.")
+                with col2:
+                    if st.button("Cancel", type="secondary"):
+                        st.session_state.confirm_delete = False
+                        st.rerun()
     
     def _render_time_patterns(self, report):
         """

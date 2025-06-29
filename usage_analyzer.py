@@ -425,6 +425,19 @@ class UsageAnalyzer:
         
         return suggestions
     
+    def clear_history(self) -> bool:
+        """
+        Clear all usage history data
+        
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        # Reset the history to an empty structure
+        self.usage_history = {"usage_history": []}
+        
+        # Save the empty history to file
+        return self._save_history()
+    
     def generate_insights_report(self) -> Dict[str, Any]:
         """
         Generate a comprehensive insights report based on all analyses
